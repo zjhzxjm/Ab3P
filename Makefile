@@ -1,6 +1,6 @@
 NCBITEXTLIB=** location of NCBITextLib **
 LIBPATH=./lib
-OS=-g
+OS=-g -std=c++11
 # OS=-O
 
 
@@ -13,17 +13,18 @@ OS=-g
 	g++ -c $(OS) -I$(LIBPATH) -I$(NCBITEXTLIB)/include $< -o $@
 
 all:
-	make programs
-	make data
+	$(MAKE) programs
+	$(MAKE) data
 
 programs:
-	make library
-	make make_wordSet
-	make make_wordCountHash
-	make identify_abbr
+	$(MAKE) library
+	$(MAKE) make_wordSet
+	$(MAKE) make_wordCountHash
+	$(MAKE) identify_abbr
+	$(MAKE) identify_abbr_jsonl
 
 library:
-	cd lib; make
+	$(MAKE) -C lib
 
 data:
 	./make_wordSet WordData/stop stop
@@ -38,9 +39,9 @@ test2:
 	./identify_abbr test2.in | diff test2.out -
 
 clean:
-	cd lib; make clean
+	$(MAKE) -C lib clean
 	rm -f WordData/cshset_* WordData/hshset_*
-	rm -f identify_abbr make_wordCountHash make_wordSet *.o *~
+	rm -f identify_abbr identify_abbr_jsonl make_wordCountHash make_wordSet *.o *~
 
 make_wordSet:		make_wordSet.o
 make_wordCountHash:	make_wordCountHash.o
@@ -48,3 +49,6 @@ identify_abbr:		identify_abbr.o lib/libAb3P.a
 identify_abbr.o:	lib/Ab3P.h
 identify_abbr_loc:	identify_abbr.o lib/libAb3P.a
 identify_abbr_loc.o:	lib/Ab3P.h
+
+identify_abbr_jsonl: identify_abbr_jsonl.o lib/libAb3P.a
+identify_abbr_jsonl.o: lib/Ab3P.h

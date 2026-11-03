@@ -7,3 +7,6 @@ WordData/hshset_*
 identify_abbr
 make_wordCountHash
 make_wordSet
+
+identify_abbr_jsonl
+__pycache__/
