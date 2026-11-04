@@ -1,3 +1,4 @@
+CXX ?= g++
 NCBITEXTLIB=** location of NCBITextLib **
 SRC_DIR=./
 TRASHFILES = *.o *~ *.bak core *.a
@@ -13,7 +14,7 @@ Ab3P.o: AbbrvE.h
 AbbrvE.o: AbbrvE.h
 
 %.o: $(SRC_DIR)/%.C
-	g++ -c $(OS) $< -o $@ $(LIB_INC)
+	$(CXX) -c $(OS) $< -o $@ $(LIB_INC)
 
 clean:
 	rm -f $(TRASHFILES)

@@ -1,3 +1,4 @@
+CXX ?= g++
 NCBITEXTLIB=** location of NCBITextLib **
 LIBPATH=./lib
 OS=-g -std=c++11
@@ -7,10 +8,10 @@ OS=-g -std=c++11
 .KEEP_STATE:
 
 %:%.o
-	g++ $(OS) -o $@ $< -L$(LIBPATH) -lAb3P -L$(NCBITEXTLIB)/lib -lText
+	$(CXX) $(OS) -o $@ $< -L$(LIBPATH) -lAb3P -L$(NCBITEXTLIB)/lib -lText
 
 %.o: %.C
-	g++ -c $(OS) -I$(LIBPATH) -I$(NCBITEXTLIB)/include $< -o $@
+	$(CXX) -c $(OS) -I$(LIBPATH) -I$(NCBITEXTLIB)/include $< -o $@
 
 all:
 	$(MAKE) programs
